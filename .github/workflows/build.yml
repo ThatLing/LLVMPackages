@@ -25,7 +25,7 @@ jobs:
     - name: Download and build LLVM
       run: |
         cmake "-DLLVM_VERSION=${{ env.LLVM_VERSION }}" -P download_llvm.cmake
-        cmake -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.type }} "-DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/install-${{ env.LLVM_VERSION }}" -DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF -DLLVM_INCLUDE_DOCS=OFF -DLLVM_INCLUDE_EXAMPLES=OFF -S llvm-${{ env.LLVM_VERSION }}/llvm -B build-${{ env.LLVM_VERSION }}
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.type }} "-DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/install-${{ env.LLVM_VERSION }}" -DLLVM_ENABLE_PROJECTS=clang -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_INCLUDE_TESTS=OFF -DLLVM_INCLUDE_BENCHMARKS=OFF -DLLVM_INCLUDE_DOCS=OFF -DLLVM_INCLUDE_EXAMPLES=OFF -DLLVM_OPTIMIZED_TABLEGEN=ON -DLLVM_BUILD_LLVM_C_DYLIB=OFF -S llvm-${{ env.LLVM_VERSION }}/llvm -B build-${{ env.LLVM_VERSION }}
         cmake --build "build-${{ env.LLVM_VERSION }}"
         cmake --install "build-${{ env.LLVM_VERSION }}"
 
